@@ -5,11 +5,14 @@ import time
 import numpy as np
 
 import torch
-from torch.utils.data import DataLoader, Subset, ConcatDataset
+from torch.utils.data import DataLoader, ConcatDataset
 from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
-from src.eval.evaluate import eval_fn, accuracy
+from src.inception import Inceptionv4Base
+from src.cnn import SampleModel
+from src.cct import ModifiedCCTLinear, CCTLinear
+from src.eval.evaluate import eval_fn
 from src.training import train_fn
 from src.data_augmentations import *
 
@@ -88,8 +91,8 @@ def main(data_dir,
     # Info about the model being trained
     # You can find the number of learnable parameters in the model here
     logging.info('Model being trained:')
-    summary(model, input_shape,
-            device='cuda' if torch.cuda.is_available() else 'cpu')
+    # summary(model, input_shape,
+    #         device='cuda' if torch.cuda.is_available() else 'cpu')
 
     # Train the model
     for epoch in range(num_epochs):

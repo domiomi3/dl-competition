@@ -1,4 +1,5 @@
-from torch import nn, Tensor
+from torch import nn
+from torch import Tensor
 from vit_pytorch.cct import cct_7
 
 
@@ -27,10 +28,27 @@ class ModifiedCCTLinear(ModifiedCCTBase):
     def __init__(self, num_classes=10):
         super().__init__()
         self.disable_gradients(self.cct)
-        # Load the pretra model pretrained on Flowers102 data
+        # Load the pretrained model pretrained on Flowers102 data
+        self.cct.classifier.fc = nn.Linear(in_features=256, out_features=num_classes)
+
+
+class CCTBase(nn.Module):
+    def __init__(self, num_classes=10):
+        super().__init__()
+        self.cct_7 = cct_7(arch='cct_7_3x1_32', pretrained=True, progress=False)
+
+    def forward(self, x) -> Tensor:
+        return self.cct(x)
+
+
+class CCTLinear(ModifiedCCTBase):
+    def __init__(self, num_classes=10):
+        super().__init__()
+        self.disable_gradients(self.cct)
+        # Load the pretrained model pretrained on Flowers102 data
         self.cct.classifier.fc = nn.Linear(in_features=256, out_features=num_classes)
 
 
 if __name__ == "__main__":
-    model = ModifiedCCTLinear ()
-    print(model)
+    model = ModifiedCCTLinear()
+    print(sum(p.numel() for p in model.parameters() if p.requires_grad))
