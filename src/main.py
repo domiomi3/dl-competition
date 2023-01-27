@@ -10,6 +10,7 @@ from torch.utils.data import DataLoader, Subset, ConcatDataset
 from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
+from src.cct import *
 from src.cnn import *
 from src.eval.evaluate import eval_fn, accuracy
 from src.training import train_fn
@@ -18,11 +19,11 @@ from src.data_augmentations import *
 
 def main(data_dir,
          torch_model,
-         num_epochs=10,
-         batch_size=50,
-         learning_rate=0.001,
+         num_epochs=100,
+         batch_size=96,
+         learning_rate=5e-4,
          train_criterion=torch.nn.CrossEntropyLoss,
-         model_optimizer=torch.optim.Adam,
+         model_optimizer=torch.optim.AdamW,
          data_augmentations=None,
          save_model_str=None,
          use_all_data_to_train=False,
@@ -82,11 +83,10 @@ def main(data_dir,
                                 batch_size=batch_size,
                                 shuffle=False)
 
-    model = torch_model(input_shape=input_shape,
-                        num_classes=len(train_data.classes)).to(device)
+    model = torch_model(num_classes=len(train_data.classes)).to(device)
 
     # instantiate optimizer
-    optimizer = model_optimizer(model.parameters(), lr=learning_rate)
+    optimizer = model_optimizer(model.parameters(), lr=learning_rate, weight_decay=6e-2)
 
     # Info about the model being trained
     # You can find the number of learnable parameters in the model here
@@ -130,7 +130,7 @@ if __name__ == '__main__':
     Feel free to add or remove more arguments, change default values or hardcode parameters to use.
     """
     loss_dict = {'cross_entropy': torch.nn.CrossEntropyLoss}  # Feel free to add more
-    opti_dict = {'sgd': torch.optim.SGD, 'adam': torch.optim.Adam}  # Feel free to add more
+    opti_dict = {'sgd': torch.optim.SGD, 'adamw': torch.optim.AdamW}  # Feel free to add more
 
     cmdline_parser = argparse.ArgumentParser('DL WS20/21 Competition')
 
@@ -139,11 +139,11 @@ if __name__ == '__main__':
                                 help='Class name of model to train',
                                 type=str)
     cmdline_parser.add_argument('-e', '--epochs',
-                                default=50,
+                                default=100,
                                 help='Number of epochs',
                                 type=int)
     cmdline_parser.add_argument('-b', '--batch_size',
-                                default=282,
+                                default=96,
                                 help='Batch size',
                                 type=int)
     cmdline_parser.add_argument('-D', '--data_dir',
@@ -151,7 +151,7 @@ if __name__ == '__main__':
                                                      '..', 'dataset'),
                                 help='Directory in which the data is stored (can be downloaded)')
     cmdline_parser.add_argument('-l', '--learning_rate',
-                                default=2.244958736283895e-05,
+                                default=5e-4,
                                 help='Optimizer learning rate',
                                 type=float)
     cmdline_parser.add_argument('-L', '--training_loss',
@@ -160,7 +160,7 @@ if __name__ == '__main__':
                                 choices=list(loss_dict.keys()),
                                 type=str)
     cmdline_parser.add_argument('-o', '--optimizer',
-                                default='adam',
+                                default='adamw',
                                 help='Which optimizer to use during training',
                                 choices=list(opti_dict.keys()),
                                 type=str)
