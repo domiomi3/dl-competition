@@ -8,7 +8,6 @@ class ModifiedCCTBase(nn.Module):
         # Load CCT model pretrained on ImageNet-1K dataset
         self.cct = cct_7(arch='cct_7_7x2_224_sine', pretrained=True, progress=False)
 
-        print(self.cct)
     def disable_gradients(self, model) -> None:
         """
         Freezes the layers of a model
