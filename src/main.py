@@ -10,8 +10,6 @@ from torch.utils.data import DataLoader, Subset, ConcatDataset
 from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
-from src.cct import *
-from src.cnn import *
 from src.eval.evaluate import eval_fn, accuracy
 from src.training import train_fn
 from src.data_augmentations import *
