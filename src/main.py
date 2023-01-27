@@ -5,7 +5,6 @@ import time
 import numpy as np
 
 import torch
-import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, Subset, ConcatDataset
 from torchsummary import summary
 from torchvision.datasets import ImageFolder
