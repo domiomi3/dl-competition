@@ -6,15 +6,15 @@ import numpy as np
 
 import torch
 from torch.utils.data import DataLoader, ConcatDataset
-from torchsummary import summary
+# from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
-from src.inception import Inceptionv4Base
-from src.cnn import SampleModel
-from src.cct import ModifiedCCTLinear, CCTLinear
-from src.eval.evaluate import eval_fn
-from src.training import train_fn
-from src.data_augmentations import *
+from inception import Inceptionv4Base
+from cnn import SampleModel
+# from cct import ModifiedCCTLinear, CCTLinear
+from eval.evaluate import eval_fn
+from training import train_fn
+from data_augmentations import *
 
 
 def main(data_dir,
@@ -52,6 +52,7 @@ def main(data_dir,
     if data_augmentations is None:
         data_augmentations = transforms.ToTensor()
     elif isinstance(data_augmentations, list):
+        #print(type(data_augmentations))
         data_augmentations = transforms.Compose(data_augmentations)
     elif not isinstance(data_augmentations, transforms.Compose):
         raise NotImplementedError
@@ -177,7 +178,7 @@ if __name__ == '__main__':
                                 help='Name of this experiment',
                                 type=str)
     cmdline_parser.add_argument('-d', '--data-augmentation',
-                                default='resize_and_colour_jitter',
+                                default='randomAugment',
                                 help='Data augmentation to apply to data before passing to the model.'
                                      + 'Must be available in data_augmentations.py')
     cmdline_parser.add_argument('-a', '--use-all-data-to-train',
