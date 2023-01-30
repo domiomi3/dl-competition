@@ -12,7 +12,7 @@ import torch
 import torchvision
 
 from torch.utils.data import DataLoader, ConcatDataset
-from torchsummary import summary
+# from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
 from src.eff_net import EfficientNetv2SFC, EfficientNetv2SBase
@@ -64,6 +64,7 @@ def main(data_dir,
     if data_augmentations is None:
         data_augmentations = transforms.ToTensor()
     elif isinstance(data_augmentations, list):
+        #print(type(data_augmentations))
         data_augmentations = transforms.Compose(data_augmentations)
     elif not isinstance(data_augmentations, transforms.Compose):
         raise NotImplementedError
