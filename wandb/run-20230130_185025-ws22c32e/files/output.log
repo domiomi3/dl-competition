@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 240, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 76, in main
+    train_loader = timm.data.loader.create_loader(train_data,
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\timm\data\loader.py", line 264, in create_loader
+    loader = PrefetchLoader(
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\timm\data\loader.py", line 87, in __init__
+    self.mean = torch.tensor([x * 255 for x in mean]).cuda().view(normalization_shape)
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\torch\cuda\__init__.py", line 221, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled

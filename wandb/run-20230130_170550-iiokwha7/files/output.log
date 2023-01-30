@@ -1,0 +1,10 @@
+INFO:timm.models.helpers:Loading pretrained weights from url (https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-effv2-weights/tf_efficientnetv2_s-eb54923e.pth)
+Downloading: "https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-effv2-weights/tf_efficientnetv2_s-eb54923e.pth" to C:\Users\msayd/.cache\torch\hub\checkpoints\tf_efficientnetv2_s-eb54923e.pth
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 234, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 113, in main
+    model = torch_model(num_classes=10).to(device)
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\eff_net.py", line 9, in __init__
+    self.dropout = nn.Dropout(0.25)
+NameError: name 'nn' is not defined

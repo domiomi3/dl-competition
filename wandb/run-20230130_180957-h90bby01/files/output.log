@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 236, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 74, in main
+    train_data, labels = timm.data.create_dataset(name="", root=os.path.join(data_dir, "train"), split="train",
+ValueError: too many values to unpack (expected 2)

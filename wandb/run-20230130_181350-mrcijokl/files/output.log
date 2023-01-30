@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 239, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 79, in main
+    train_data = mixup(train_data)
+TypeError: Mixup.__call__() missing 1 required positional argument: 'target'

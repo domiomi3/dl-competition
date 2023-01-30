@@ -1,0 +1,8 @@
+INFO:timm.models.helpers:Loading pretrained weights from url (https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-effv2-weights/tf_efficientnetv2_s-eb54923e.pth)
+INFO:root:Model being trained:
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 234, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 124, in main
+    summary(model, input_shape,
+NameError: name 'summary' is not defined

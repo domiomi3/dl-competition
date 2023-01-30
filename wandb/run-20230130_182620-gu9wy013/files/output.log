@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 238, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 78, in main
+    train_data = mixup(inputs, classes)
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\timm\data\mixup.py", line 210, in __call__
+    assert len(x) % 2 == 0, 'Batch size should be even when using this'
+AssertionError: Batch size should be even when using this

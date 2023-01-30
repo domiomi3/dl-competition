@@ -11,7 +11,7 @@ from timm.data.transforms_factory import create_transform
 # TODO varying input size for our images, can't define function!!!
 transform_test = create_transform(input_size=(), is_training=True, scale=(224, 224), hflip=0.5, vflip=0.5, re_prob=0.9)
 
-
+#mixup = Mixup(mixup_alpha=1, cutmix_alpha=1, prob=1, switch_prob=1, num_classes=10)
 
 resize_to_224x224 = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -36,8 +36,8 @@ transformations = [transforms.Resize((224, 224)),
                    transforms.RandomRotation(30),
                    transforms.ToTensor(),
                    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])]
-<<<<<<< HEAD
-=======
+#<<<<<<< HEAD
+#=======
 
 
->>>>>>> 7b5ad8a01e05def3800a581b19b07602c8d32c91
+#>>>>>>> 7b5ad8a01e05def3800a581b19b07602c8d32c91

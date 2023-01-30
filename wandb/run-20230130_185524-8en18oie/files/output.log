@@ -1,0 +1,51 @@
+INFO:timm.models.helpers:Loading pretrained weights from url (https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-effv2-weights/tf_efficientnetv2_s-eb54923e.pth)
+INFO:root:Model being trained:
+INFO:root:##################################################
+INFO:root:Epoch [1/100]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(=> Training) Loss: 1.9875: 100%|██████████████████| 40/40 [00:30<00:00,  1.31it/s]
+INFO:root:Train accuracy: 0.390000
+(=> Test) Score: 0.2000:   5%|█                     | 1/20 [00:00<00:12,  1.50it/s]
+
+
+
+
+
+
+(=> Test) Score: 0.2500: 100%|█████████████████████| 20/20 [00:13<00:00,  1.46it/s]
+INFO:root:Validation accuracy: 0.250000
+INFO:root:##################################################
+INFO:root:Epoch [2/100]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(=> Training) Loss: 1.9665: 100%|██████████████████| 40/40 [00:32<00:00,  1.24it/s]
+INFO:root:Train accuracy: 0.450000
+(=> Test) Score: 0.0500:  10%|██▏                   | 2/20 [00:01<00:12,  1.42it/s]
+
+

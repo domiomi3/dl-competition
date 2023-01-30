@@ -1,0 +1,144 @@
+2023-01-30 17:26:37,423 INFO    StreamThr :33568 [internal.py:wandb_internal():87] W&B internal server running at pid: 33568, started at: 2023-01-30 17:26:37.423142
+2023-01-30 17:26:37,423 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status
+2023-01-30 17:26:37,428 INFO    WriterThread:33568 [datastore.py:open_for_write():85] open: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\run-8x2vs6q2.wandb
+2023-01-30 17:26:37,428 DEBUG   SenderThread:33568 [sender.py:send():334] send: header
+2023-01-30 17:26:37,475 DEBUG   SenderThread:33568 [sender.py:send():334] send: run
+2023-01-30 17:26:38,989 INFO    SenderThread:33568 [dir_watcher.py:__init__():216] watching files in: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files
+2023-01-30 17:26:38,989 INFO    SenderThread:33568 [sender.py:_start_run_threads():1065] run started: 8x2vs6q2 with start time 1675095997.423141
+2023-01-30 17:26:38,989 DEBUG   SenderThread:33568 [sender.py:send_request():361] send_request: summary_record
+2023-01-30 17:26:38,989 INFO    SenderThread:33568 [sender.py:_save_file():1319] saving file wandb-summary.json with policy end
+2023-01-30 17:26:38,989 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: check_version
+2023-01-30 17:26:38,989 DEBUG   SenderThread:33568 [sender.py:send_request():361] send_request: check_version
+2023-01-30 17:26:39,108 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: run_start
+2023-01-30 17:26:39,118 DEBUG   HandlerThread:33568 [system_info.py:__init__():31] System info init
+2023-01-30 17:26:39,118 DEBUG   HandlerThread:33568 [system_info.py:__init__():46] System info init done
+2023-01-30 17:26:39,118 INFO    HandlerThread:33568 [system_monitor.py:start():151] Starting system monitor
+2023-01-30 17:26:39,118 INFO    SystemMonitor:33568 [system_monitor.py:_start():116] Starting system asset monitoring threads
+2023-01-30 17:26:39,118 INFO    HandlerThread:33568 [system_monitor.py:probe():172] Collecting system info
+2023-01-30 17:26:39,132 INFO    SystemMonitor:33568 [interfaces.py:start():168] Started cpu
+2023-01-30 17:26:39,132 INFO    SystemMonitor:33568 [interfaces.py:start():168] Started disk
+2023-01-30 17:26:39,139 DEBUG   HandlerThread:33568 [system_info.py:probe():195] Probing system
+2023-01-30 17:26:39,158 INFO    SystemMonitor:33568 [interfaces.py:start():168] Started memory
+2023-01-30 17:26:39,164 INFO    SystemMonitor:33568 [interfaces.py:start():168] Started network
+2023-01-30 17:26:39,168 DEBUG   HandlerThread:33568 [system_info.py:_probe_git():180] Probing git
+2023-01-30 17:26:39,259 DEBUG   HandlerThread:33568 [system_info.py:_probe_git():188] Probing git done
+2023-01-30 17:26:39,259 DEBUG   HandlerThread:33568 [system_info.py:probe():241] Probing system done
+2023-01-30 17:26:39,259 DEBUG   HandlerThread:33568 [system_monitor.py:probe():181] {'os': 'Windows-10-10.0.22621-SP0', 'python': '3.10.9', 'heartbeatAt': '2023-01-30T16:26:39.143693', 'startedAt': '2023-01-30T16:26:37.408427', 'docker': None, 'cuda': None, 'args': ('-m', 'EfficientNetv2SFC', '-b', '512', '-d', 'randomAugment'), 'state': 'running', 'program': 'C:\\Users\\msayd\\Documents\\Foundations of Deep Learning\\Project\\dl-competition\\src\\main.py', 'codePath': 'src\\main.py', 'git': {'remote': 'https://github.com/domiomi3/dl-competition', 'commit': 'd8e0354c58612a6d1cb315473731098dc9b40ecf'}, 'email': 'msaydez_campbell@hotmail.com', 'root': 'C:/Users/msayd/Documents/Foundations of Deep Learning/Project/dl-competition', 'host': 'MSaydez', 'username': 'msayd', 'executable': 'C:\\Users\\msayd\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\python.exe', 'cpu_count': 6, 'cpu_count_logical': 12, 'cpu_freq': {'current': 3301.0, 'min': 0.0, 'max': 3301.0}, 'cpu_freq_per_core': [{'current': 3301.0, 'min': 0.0, 'max': 3301.0}], 'disk': {'total': 951.6455039978027, 'used': 132.48091888427734}, 'memory': {'total': 13.692329406738281}}
+2023-01-30 17:26:39,259 INFO    HandlerThread:33568 [system_monitor.py:probe():182] Finished collecting system info
+2023-01-30 17:26:39,259 INFO    HandlerThread:33568 [system_monitor.py:probe():185] Publishing system info
+2023-01-30 17:26:39,259 DEBUG   HandlerThread:33568 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2023-01-30 17:26:39,268 DEBUG   HandlerThread:33568 [system_info.py:_save_pip():67] Saving pip packages done
+2023-01-30 17:26:39,279 INFO    HandlerThread:33568 [system_monitor.py:probe():187] Finished publishing system info
+2023-01-30 17:26:39,279 DEBUG   SenderThread:33568 [sender.py:send():334] send: files
+2023-01-30 17:26:39,279 INFO    SenderThread:33568 [sender.py:_save_file():1319] saving file wandb-metadata.json with policy now
+2023-01-30 17:26:39,291 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: stop_status
+2023-01-30 17:26:39,291 DEBUG   SenderThread:33568 [sender.py:send_request():361] send_request: stop_status
+2023-01-30 17:26:39,496 DEBUG   SenderThread:33568 [sender.py:send():334] send: telemetry
+2023-01-30 17:26:40,005 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:26:40,005 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\wandb-metadata.json
+2023-01-30 17:26:40,005 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\wandb-summary.json
+2023-01-30 17:26:40,005 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\requirements.txt
+2023-01-30 17:26:40,058 INFO    Thread-22 :33568 [upload_job.py:push():143] Uploaded file C:\Users\msayd\AppData\Local\Temp\tmps52iei_3wandb\u24cter1-wandb-metadata.json
+2023-01-30 17:26:42,033 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:26:42,681 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:26:47,694 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:26:52,720 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:26:54,307 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:26:54,307 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:26:57,779 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:26:59,352 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:02,804 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:04,385 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:07,867 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:09,286 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\config.yaml
+2023-01-30 17:27:09,445 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:13,882 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:14,342 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:27:14,501 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:15,344 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:27:18,911 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:19,534 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:24,004 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:24,594 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:29,040 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:29,107 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: partial_history
+2023-01-30 17:27:29,107 DEBUG   SenderThread:33568 [sender.py:send():334] send: history
+2023-01-30 17:27:29,107 DEBUG   SenderThread:33568 [sender.py:send_request():361] send_request: summary_record
+2023-01-30 17:27:29,114 INFO    SenderThread:33568 [sender.py:_save_file():1319] saving file wandb-summary.json with policy end
+2023-01-30 17:27:29,454 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\wandb-summary.json
+2023-01-30 17:27:29,634 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:30,469 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:27:34,205 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:34,675 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:39,176 DEBUG   SystemMonitor:33568 [system_monitor.py:_start():130] Starting system metrics aggregation loop
+2023-01-30 17:27:39,176 DEBUG   SenderThread:33568 [sender.py:send():334] send: stats
+2023-01-30 17:27:39,719 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:40,182 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:44,783 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:45,228 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:49,846 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:50,258 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:54,893 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:27:55,319 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:27:59,943 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:00,372 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:04,975 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:05,799 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:28:06,019 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:06,815 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:28:09,185 DEBUG   SenderThread:33568 [sender.py:send():334] send: stats
+2023-01-30 17:28:09,994 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:11,215 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:15,057 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:16,263 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:20,118 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:20,466 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: partial_history
+2023-01-30 17:28:20,466 DEBUG   SenderThread:33568 [sender.py:send():334] send: history
+2023-01-30 17:28:20,466 DEBUG   SenderThread:33568 [sender.py:send_request():361] send_request: summary_record
+2023-01-30 17:28:20,468 INFO    SenderThread:33568 [sender.py:_save_file():1319] saving file wandb-summary.json with policy end
+2023-01-30 17:28:21,046 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\wandb-summary.json
+2023-01-30 17:28:21,471 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:22,059 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:28:25,150 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:26,513 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:30,168 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:31,536 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:35,204 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:36,578 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:39,192 DEBUG   SenderThread:33568 [sender.py:send():334] send: stats
+2023-01-30 17:28:40,271 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:42,235 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:45,321 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:47,289 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:50,374 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:52,328 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:28:55,417 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:55,417 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:28:55,618 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:28:56,623 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:28:57,937 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:00,464 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:02,970 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:05,515 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:08,014 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:09,199 DEBUG   SenderThread:33568 [sender.py:send():334] send: stats
+2023-01-30 17:29:10,555 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:11,784 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: partial_history
+2023-01-30 17:29:11,784 DEBUG   SenderThread:33568 [sender.py:send():334] send: history
+2023-01-30 17:29:11,785 DEBUG   SenderThread:33568 [sender.py:send_request():361] send_request: summary_record
+2023-01-30 17:29:11,785 INFO    SenderThread:33568 [sender.py:_save_file():1319] saving file wandb-summary.json with policy end
+2023-01-30 17:29:11,867 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\wandb-summary.json
+2023-01-30 17:29:12,875 INFO    Thread-17 :33568 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_172637-8x2vs6q2\files\output.log
+2023-01-30 17:29:13,797 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:15,613 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:18,821 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:20,669 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:23,890 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:25,730 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:28,949 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:30,751 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:33,979 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:35,794 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive
+2023-01-30 17:29:39,039 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: status_report
+2023-01-30 17:29:39,216 DEBUG   SenderThread:33568 [sender.py:send():334] send: stats
+2023-01-30 17:29:40,848 DEBUG   HandlerThread:33568 [handler.py:handle_request():144] handle_request: keepalive

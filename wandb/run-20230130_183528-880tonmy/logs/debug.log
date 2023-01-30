@@ -1,0 +1,25 @@
+2023-01-30 18:35:28,521 INFO    MainThread:41344 [wandb_setup.py:_flush():68] Configure stats pid to 41344
+2023-01-30 18:35:28,521 INFO    MainThread:41344 [wandb_setup.py:_flush():68] Loading settings from C:\Users\msayd\.config\wandb\settings
+2023-01-30 18:35:28,521 INFO    MainThread:41344 [wandb_setup.py:_flush():68] Loading settings from C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\settings
+2023-01-30 18:35:28,521 INFO    MainThread:41344 [wandb_setup.py:_flush():68] Loading settings from environment variables: {'_require_service': 'True'}
+2023-01-30 18:35:28,521 INFO    MainThread:41344 [wandb_setup.py:_flush():68] Inferring run settings from compute environment: {'program_relpath': 'src\\main.py', 'program': 'C:\\Users\\msayd\\Documents\\Foundations of Deep Learning\\Project\\dl-competition\\src\\main.py'}
+2023-01-30 18:35:28,533 INFO    MainThread:41344 [wandb_init.py:_log_setup():478] Logging user logs to C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_183528-880tonmy\logs\debug.log
+2023-01-30 18:35:28,533 INFO    MainThread:41344 [wandb_init.py:_log_setup():479] Logging internal logs to C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\wandb\run-20230130_183528-880tonmy\logs\debug-internal.log
+2023-01-30 18:35:28,533 INFO    MainThread:41344 [wandb_init.py:init():518] calling init triggers
+2023-01-30 18:35:28,533 INFO    MainThread:41344 [wandb_init.py:init():521] wandb.init called with sweep_config: {}
+config: {}
+2023-01-30 18:35:28,533 INFO    MainThread:41344 [wandb_init.py:init():571] starting backend
+2023-01-30 18:35:28,533 INFO    MainThread:41344 [wandb_init.py:init():575] setting up manager
+2023-01-30 18:35:28,539 INFO    MainThread:41344 [backend.py:_multiprocessing_setup():106] multiprocessing start_methods=spawn, using: spawn
+2023-01-30 18:35:28,541 INFO    MainThread:41344 [wandb_init.py:init():582] backend started and connected
+2023-01-30 18:35:28,544 INFO    MainThread:41344 [wandb_init.py:init():670] updated telemetry
+2023-01-30 18:35:28,598 INFO    MainThread:41344 [wandb_init.py:init():710] communicating run to backend with 60.0 second timeout
+2023-01-30 18:35:29,059 INFO    MainThread:41344 [wandb_run.py:_on_init():2121] communicating current version
+2023-01-30 18:35:29,157 INFO    MainThread:41344 [wandb_run.py:_on_init():2125] got version response 
+2023-01-30 18:35:29,157 INFO    MainThread:41344 [wandb_init.py:init():758] starting run threads in backend
+2023-01-30 18:35:29,349 INFO    MainThread:41344 [wandb_run.py:_console_start():2101] atexit reg
+2023-01-30 18:35:29,349 INFO    MainThread:41344 [wandb_run.py:_redirect():1959] redirect: SettingsConsole.WRAP_RAW
+2023-01-30 18:35:29,349 INFO    MainThread:41344 [wandb_run.py:_redirect():2024] Wrapping output streams.
+2023-01-30 18:35:29,349 INFO    MainThread:41344 [wandb_run.py:_redirect():2046] Redirects installed.
+2023-01-30 18:35:29,357 INFO    MainThread:41344 [wandb_init.py:init():798] run started, returning control to user process
+2023-01-30 18:35:37,368 WARNING MsgRouterThr:41344 [router.py:message_loop():77] message_loop has been closed

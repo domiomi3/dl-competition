@@ -1,0 +1,49 @@
+{
+    "os": "Windows-10-10.0.22621-SP0",
+    "python": "3.10.9",
+    "heartbeatAt": "2023-01-30T17:16:07.095020",
+    "startedAt": "2023-01-30T17:16:06.378974",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "-m",
+        "EfficientNetv2SFC",
+        "-b",
+        "512",
+        "-d",
+        "randomAugment"
+    ],
+    "state": "running",
+    "program": "C:\\Users\\msayd\\Documents\\Foundations of Deep Learning\\Project\\dl-competition\\src\\main.py",
+    "codePath": "src\\main.py",
+    "git": {
+        "remote": "https://github.com/domiomi3/dl-competition",
+        "commit": "d8e0354c58612a6d1cb315473731098dc9b40ecf"
+    },
+    "email": "msaydez_campbell@hotmail.com",
+    "root": "C:/Users/msayd/Documents/Foundations of Deep Learning/Project/dl-competition",
+    "host": "MSaydez",
+    "username": "msayd",
+    "executable": "C:\\Users\\msayd\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\python.exe",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 3301.0,
+        "min": 0.0,
+        "max": 3301.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3301.0,
+            "min": 0.0,
+            "max": 3301.0
+        }
+    ],
+    "disk": {
+        "total": 951.6455039978027,
+        "used": 132.48950958251953
+    },
+    "memory": {
+        "total": 13.692329406738281
+    }
+}

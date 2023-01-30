@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 238, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 74, in main
+    train_data = timm.data.create_dataset(name="", root=os.path.join(data_dir, "train"), batch_size=10, split="train",
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\timm\data\dataset_factory.py", line 142, in create_dataset
+    ds = ImageDataset(root, parser=name, class_map=class_map, load_bytes=load_bytes, **kwargs)
+TypeError: ImageDataset.__init__() got an unexpected keyword argument 'use_prefetcher'

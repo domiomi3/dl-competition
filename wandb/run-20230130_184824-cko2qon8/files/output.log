@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 238, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 76, in main
+    train_loader = timm.create_loader(train_data,batch_size=4,is_training=True)
+AttributeError: module 'timm' has no attribute 'create_loader'

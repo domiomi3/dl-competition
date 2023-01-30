@@ -6,6 +6,7 @@ class EfficientNetv2SBase(torch.nn.Module):
     def __init__(self, num_classes=10):
         super().__init__()
         self.model = timm.create_model("tf_efficientnetv2_s", pretrained=True, num_classes=num_classes)
+        self.dropout = torch.nn.Dropout(0.50)
 
     def forward(self, x) -> torch.Tensor:
         """
@@ -15,6 +16,7 @@ class EfficientNetv2SBase(torch.nn.Module):
         Returns:
             Logits for each class
         """
+        x = self.dropout(x)
         return self.model(x)
 
     def disable_gradients(self) -> None:

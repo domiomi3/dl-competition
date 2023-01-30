@@ -15,11 +15,11 @@ from torch.utils.data import DataLoader, ConcatDataset
 # from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
-from src.eff_net import EfficientNetv2SFC, EfficientNetv2SBase
+from eff_net import EfficientNetv2SFC, EfficientNetv2SBase
 # from src.cnn import SampleModel
-from src.eval.evaluate import eval_fn
-from src.training import train_fn
-from src.data_augmentations import *
+from eval.evaluate import eval_fn
+from training import train_fn
+from data_augmentations import *
 
 
 def main(data_dir,
@@ -64,17 +64,17 @@ def main(data_dir,
     if data_augmentations is None:
         data_augmentations = transforms.ToTensor()
     elif isinstance(data_augmentations, list):
-        #print(type(data_augmentations))
         data_augmentations = transforms.Compose(data_augmentations)
     elif not isinstance(data_augmentations, transforms.Compose):
         raise NotImplementedError
 
     # TODO include augmentation in creating datasets
+    # mixup = Mixup(mixup_alpha=1, cutmix_alpha=1, prob=1, switch_prob=1, num_classes=10)
     # Create the dataset
     train_data = timm.data.create_dataset(name="", root=os.path.join(data_dir, "train"), split="train",
-                                          is_training=True, transform=resize_to_224x224)
+                                          is_training=True, transform=data_augmentations)
     val_data = timm.data.create_dataset(name="", root=os.path.join(data_dir, "val"), split="validation",
-                                        transform=resize_to_224x224)
+                                        transform=data_augmentations)
     test_data = timm.data.create_dataset(name="", root=os.path.join(data_dir, "test"), split="test")
 
     channels, img_height, img_width = train_data[0][0].shape
@@ -122,8 +122,8 @@ def main(data_dir,
     # Info about the model being trained
     # You can find the number of learnable parameters in the model here
     logging.info('Model being trained:')
-    summary(model, input_shape,
-            device='cuda' if torch.cuda.is_available() else 'cpu')
+    #summary(model, input_shape,
+     #       device='cuda' if torch.cuda.is_available() else 'cpu')
 
     # Train the model
     for epoch in range(num_epochs):

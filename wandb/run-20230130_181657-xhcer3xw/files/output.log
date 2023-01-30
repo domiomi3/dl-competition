@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 243, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 83, in main
+    train_data = mixup(images, labels)
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\timm\data\mixup.py", line 216, in __call__
+    lam = self._mix_batch(x)
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\timm\data\mixup.py", line 202, in _mix_batch
+    x.shape, lam, ratio_minmax=self.cutmix_minmax, correct_lam=self.correct_lam)
+AttributeError: 'list' object has no attribute 'shape'

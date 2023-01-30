@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 234, in <module>
+    main(
+  File "C:\Users\msayd\Documents\Foundations of Deep Learning\Project\dl-competition\src\main.py", line 79, in main
+    channels, img_height, img_width = train_data[0][0].shape
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\timm\data\dataset.py", line 52, in __getitem__
+    img = self.transform(img)
+  File "C:\Users\msayd\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\torchvision\transforms\transforms.py", line 95, in __call__
+    img = t(img)
+TypeError: Mixup.__call__() missing 1 required positional argument: 'target'
