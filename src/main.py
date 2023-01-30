@@ -3,15 +3,20 @@ import argparse
 import logging
 import time
 import numpy as np
+import wandb
 
+import timm
+import timm.optim
+import timm.data
 import torch
+import torchvision
+
 from torch.utils.data import DataLoader, ConcatDataset
 from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
-from src.inception import Inceptionv4Base
-from src.cnn import SampleModel
-from src.cct import ModifiedCCTLinear, CCTLinear
+from src.eff_net import EfficientNetv2SFC, EfficientNetv2SBase
+# from src.cnn import SampleModel
 from src.eval.evaluate import eval_fn
 from src.training import train_fn
 from src.data_augmentations import *
@@ -19,11 +24,12 @@ from src.data_augmentations import *
 
 def main(data_dir,
          torch_model,
-         num_epochs=100,
-         batch_size=96,
-         learning_rate=5e-4,
+         num_epochs=15,
+         batch_size=32,
+         learning_rate=1e-3,
+         weight_decay=0.9,
          train_criterion=torch.nn.CrossEntropyLoss,
-         model_optimizer=torch.optim.AdamW,
+         model_optimizer="RMSprop",
          data_augmentations=None,
          save_model_str=None,
          use_all_data_to_train=False,
@@ -35,6 +41,7 @@ def main(data_dir,
     :param num_epochs: (int)
     :param batch_size: (int)
     :param learning_rate: model optimizer learning rate (float)
+    :param weight_decay: model optimizer weight_decay (float)
     :param train_criterion: Which loss to use during training (torch.nn._Loss)
     :param model_optimizer: Which model optimizer to use during training (torch.optim.Optimizer)
     :param data_augmentations: List of data augmentations to apply such as rescaling.
@@ -46,9 +53,14 @@ def main(data_dir,
     :return:
     """
 
+    # WandB initialization
+    wandb.login()
+    wandb.init(project=f'{exp_name}')
+
     # Device configuration
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
+    # Data augmentation
     if data_augmentations is None:
         data_augmentations = transforms.ToTensor()
     elif isinstance(data_augmentations, list):
@@ -56,10 +68,13 @@ def main(data_dir,
     elif not isinstance(data_augmentations, transforms.Compose):
         raise NotImplementedError
 
-    # Load the dataset
-    train_data = ImageFolder(os.path.join(data_dir, 'train'), transform=data_augmentations)
-    val_data = ImageFolder(os.path.join(data_dir, 'val'), transform=data_augmentations)
-    test_data = ImageFolder(os.path.join(data_dir, 'test'), transform=data_augmentations)
+    # TODO include augmentation in creating datasets
+    # Create the dataset
+    train_data = timm.data.create_dataset(name="", root=os.path.join(data_dir, "train"), split="train",
+                                          is_training=True, transform=resize_to_224x224)
+    val_data = timm.data.create_dataset(name="", root=os.path.join(data_dir, "val"), split="validation",
+                                        transform=resize_to_224x224)
+    test_data = timm.data.create_dataset(name="", root=os.path.join(data_dir, "test"), split="test")
 
     channels, img_height, img_width = train_data[0][0].shape
 
@@ -70,29 +85,44 @@ def main(data_dir,
     train_criterion = train_criterion().to(device)
     score = []
 
-    if use_all_data_to_train:
-        train_loader = DataLoader(dataset=ConcatDataset([train_data, val_data, test_data]),
-                                  batch_size=batch_size,
-                                  shuffle=True)
-        logging.warning('Training with all the data (train, val and test).')
+    # Create the dataset loader
+    if device == torch.device("cpu"):
+        if use_all_data_to_train:
+            train_loader = DataLoader(dataset=ConcatDataset([train_data, val_data, test_data]),
+                                      batch_size=batch_size,
+                                      shuffle=True)
+            logging.warning('Training with all the data (train, val and test).')
+        else:
+            train_loader = DataLoader(dataset=train_data,
+                                      batch_size=batch_size,
+                                      shuffle=True)
+            val_loader = DataLoader(dataset=val_data,
+                                    batch_size=batch_size,
+                                    shuffle=False)
     else:
-        train_loader = DataLoader(dataset=train_data,
-                                  batch_size=batch_size,
-                                  shuffle=True)
-        val_loader = DataLoader(dataset=val_data,
-                                batch_size=batch_size,
-                                shuffle=False)
+        if use_all_data_to_train:
+            train_loader = timm.data.create_loader(dataset=ConcatDataset([train_data, val_data, test_data]),
+                                                   input_size=input_shape, batch_size=batch_size, is_training=True)
+            logging.warning('Training with all the data (train, val and test).')
+        else:
+            train_loader = timm.data.create_loader(dataset=train_data, input_size=input_shape, batch_size=batch_size,
+                                                   is_training=True)
+            val_loader = timm.data.create_loader(dataset=train_data, input_size=input_shape, batch_size=batch_size)
 
-    model = torch_model(num_classes=len(train_data.classes)).to(device)
+    # TODO define num_classes based on labels
+    model = torch_model(num_classes=10).to(device)
 
     # instantiate optimizer
-    optimizer = model_optimizer(model.parameters(), lr=learning_rate, weight_decay=6e-2)
+    optimizer = timm.optim.create_optimizer_v2(model_or_params=model, opt=model_optimizer, weight_decay=weight_decay,
+                                               lr=learning_rate)
+
+    # TODO add lr scheduler*
 
     # Info about the model being trained
     # You can find the number of learnable parameters in the model here
     logging.info('Model being trained:')
-    # summary(model, input_shape,
-    #         device='cuda' if torch.cuda.is_available() else 'cpu')
+    summary(model, input_shape,
+            device='cuda' if torch.cuda.is_available() else 'cpu')
 
     # Train the model
     for epoch in range(num_epochs):
@@ -106,6 +136,10 @@ def main(data_dir,
             test_score = eval_fn(model, val_loader, device)
             logging.info('Validation accuracy: %f', test_score)
             score.append(test_score)
+            wandb.log({'train_accuracy': train_score, 'train_loss': train_loss, 'test_accuracy': test_score,
+                       'epoch': epoch})
+        else:
+            wandb.log({'train_accuracy': train_score, 'train_loss': train_loss, 'epoch': epoch})
 
     if save_model_str:
         # Save the model checkpoint can be restored via "model = torch.load(save_model_str)"
@@ -122,6 +156,8 @@ def main(data_dir,
         logging.info('Mean of accuracies across all epochs: ' + str(100 * np.mean(score)) + '%')
         logging.info('Accuracy of model at final epoch: ' + str(100 * score[-1]) + '%')
 
+    return score[-1]
+
 
 if __name__ == '__main__':
     """
@@ -130,7 +166,6 @@ if __name__ == '__main__':
     Feel free to add or remove more arguments, change default values or hardcode parameters to use.
     """
     loss_dict = {'cross_entropy': torch.nn.CrossEntropyLoss}  # Feel free to add more
-    opti_dict = {'sgd': torch.optim.SGD, 'adamw': torch.optim.AdamW}  # Feel free to add more
 
     cmdline_parser = argparse.ArgumentParser('DL WS20/21 Competition')
 
@@ -143,7 +178,7 @@ if __name__ == '__main__':
                                 help='Number of epochs',
                                 type=int)
     cmdline_parser.add_argument('-b', '--batch_size',
-                                default=96,
+                                default=32,
                                 help='Batch size',
                                 type=int)
     cmdline_parser.add_argument('-D', '--data_dir',
@@ -151,8 +186,12 @@ if __name__ == '__main__':
                                                      '..', 'dataset'),
                                 help='Directory in which the data is stored (can be downloaded)')
     cmdline_parser.add_argument('-l', '--learning_rate',
-                                default=5e-4,
+                                default=1e-3,
                                 help='Optimizer learning rate',
+                                type=float)
+    cmdline_parser.add_argument('-w', '--weight_decay',
+                                default=9e-1,
+                                help='Optimizer weight decay',
                                 type=float)
     cmdline_parser.add_argument('-L', '--training_loss',
                                 default='cross_entropy',
@@ -160,9 +199,8 @@ if __name__ == '__main__':
                                 choices=list(loss_dict.keys()),
                                 type=str)
     cmdline_parser.add_argument('-o', '--optimizer',
-                                default='adamw',
+                                default='RMSprop',
                                 help='Which optimizer to use during training',
-                                choices=list(opti_dict.keys()),
                                 type=str)
     cmdline_parser.add_argument('-p', '--model_path',
                                 default='models',
@@ -177,7 +215,7 @@ if __name__ == '__main__':
                                 help='Name of this experiment',
                                 type=str)
     cmdline_parser.add_argument('-d', '--data-augmentation',
-                                default='resize_and_colour_jitter',
+                                default='resize_to_224x224',
                                 help='Data augmentation to apply to data before passing to the model.'
                                      + 'Must be available in data_augmentations.py')
     cmdline_parser.add_argument('-a', '--use-all-data-to-train',
@@ -199,8 +237,9 @@ if __name__ == '__main__':
         num_epochs=args.epochs,
         batch_size=args.batch_size,
         learning_rate=args.learning_rate,
+        weight_decay=args.weight_decay,
         train_criterion=loss_dict[args.training_loss],
-        model_optimizer=opti_dict[args.optimizer],
+        model_optimizer=args.optimizer,
         data_augmentations=eval(args.data_augmentation),  # Check data_augmentations.py for sample augmentations
         save_model_str=args.model_path,
         exp_name=args.exp_name,

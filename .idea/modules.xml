@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/dl2022-competition-dl2022-sdf.iml" filepath="$PROJECT_DIR$/.idea/dl2022-competition-dl2022-sdf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../dl2022-competition-dl2022-large/.idea/dl2022-competition-dl2022-large.iml" filepath="$PROJECT_DIR$/../dl2022-competition-dl2022-large/.idea/dl2022-competition-dl2022-large.iml" />
     </modules>
   </component>
 </project>
