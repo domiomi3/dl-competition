@@ -1,0 +1,9 @@
+# WandB logs
+wandb/
+
+# BO configs and results
+results/
+
+# PyCharm
+.idea/
+/.idea/
