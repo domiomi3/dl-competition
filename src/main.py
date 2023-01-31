@@ -120,7 +120,8 @@ def train_and_evaluate(data_dir,
     """
 
     # Run ID for model retrieval and WandB plotting
-    run_id = f'lr={learning_rate}_wd={weight_decay}_m={momentum}_dr={dropout}_cmix_prob={cutmix_prob}_beta={beta}'
+    run_id = f'lr={learning_rate:.5f}_wd={weight_decay:.5f}_m={momentum:.5f}_dr={dropout:.5f}_cmix_prob={cutmix_prob:.5f}_beta' \
+             f'={beta:.5f}'
 
     # WandB initialization if -wb flag enabled
     if log_wandb:
