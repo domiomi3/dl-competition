@@ -122,15 +122,17 @@ def train_and_evaluate(data_dir,
     run_id = f'lr={learning_rate:.5f}_wd={weight_decay:.5f}_m={momentum:.5f}_dr={dropout:.5f}_cmix_prob={cutmix_prob:.5f}_beta' \
              f'={beta:.5f}'
 
-    # WandB initialization if -wb flag enabled
+    # Initialize WandB (optional)
     if log_wandb:
+        # get the desired location for wandb/
+        os.environ['WANDB_DIR'] = os.path.join(os.getcwd(), '..')
         wandb.login()
         wandb.init(project=f'{exp_name}', id=run_id, reinit=True)
 
-    # Device configuration
+    # Configure device
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-    # Data augmentation
+    # Set data augmentation
     if data_augmentations is None:
         data_augmentations = transforms.ToTensor()
     elif isinstance(data_augmentations, list):
@@ -143,12 +145,7 @@ def train_and_evaluate(data_dir,
     val_data = ImageFolder(os.path.join(data_dir, 'val'), transform=data_augmentations)
     test_data = ImageFolder(os.path.join(data_dir, 'test'), transform=data_augmentations)
 
-    channels, img_height, img_width = train_data[0][0].shape
-
-    # image size
-    input_shape = (channels, img_height, img_width)
-
-    # instantiate training criterion
+    # Instantiate training criterion
     train_criterion = train_criterion().to(device)
     score = []
 
@@ -162,15 +159,14 @@ def train_and_evaluate(data_dir,
         train_loader = DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True)
         val_loader = DataLoader(dataset=val_data, batch_size=batch_size, shuffle=False)
 
-    # Model initialization
+    # Initialize model
     model = torch_model(num_classes=len(train_data.classes), dropout=dropout).to(device)
 
-    # Optimizer initialization
+    # Initialize optimizer
     optimizer = model_optimizer(params=model.parameters(), lr=learning_rate, weight_decay=weight_decay,
                                 momentum=momentum)
 
-    # Info about the model being trained
-    # You can find the number of learnable parameters in the model here
+    # Log info
     logging.info('Model being trained:')
     # summary(model, input_shape,
     #         device='cuda' if torch.cuda.is_available() else 'cpu')
@@ -195,7 +191,6 @@ def train_and_evaluate(data_dir,
                 wandb.log({'train_accuracy': train_score, 'train_loss': train_loss, 'epoch': epoch})
 
     if save_model_str:
-        # Save the model checkpoint can be restored via "model = torch.load(save_model_str)"
         model_save_dir = os.path.join(os.getcwd(), '..', save_model_str)
 
         if not os.path.exists(model_save_dir):
@@ -298,28 +293,27 @@ if __name__ == '__main__':
                                 help='Which optimizer to use during training',
                                 choices=list(optim_dict.keys()),
                                 type=str)
-    cmdline_parser.add_argument('-p', '--model_path',
-                                default='models',
-                                help='Path to store model',
-                                type=str)
-    cmdline_parser.add_argument('-v', '--verbose',
-                                default='INFO',
-                                choices=['INFO', 'DEBUG'],
-                                help='verbosity')
+    cmdline_parser.add_argument('-d', '--data-augmentation',
+                                default='resize_to_224x224',
+                                help='Data augmentation to apply to data before passing to the model.')
     cmdline_parser.add_argument('-n', '--exp_name',
                                 default='default',
                                 help='Name of this experiment',
                                 type=str)
-    cmdline_parser.add_argument('-d', '--data-augmentation',
-                                default='resize_to_224x224',
-                                help='Data augmentation to apply to data before passing to the model.'
-                                     + 'Must be available in data_augmentations.py')
+    cmdline_parser.add_argument('-p', '--model_path',
+                                default='models',
+                                help='Path to store model',
+                                type=str)
     cmdline_parser.add_argument('-a', '--use_all_data_to_train',
                                 action='store_true',
                                 help='Uses the train, validation, and test data to train the model if enabled.')
     cmdline_parser.add_argument('-wb', '--wandb',
                                 action='store_true',
                                 help='Enables WandB plotting.')
+    cmdline_parser.add_argument('-v', '--verbose',
+                                default='INFO',
+                                choices=['INFO', 'DEBUG'],
+                                help='verbosity')
 
     args, unknowns = cmdline_parser.parse_known_args()
     log_lvl = logging.INFO if args.verbose == 'INFO' else logging.DEBUG
@@ -336,18 +330,18 @@ if __name__ == '__main__':
         bo=args.bo,
         bo_iter=args.bo_iter,
         num_epochs=args.epochs,
+        batch_size=args.batch_size,
         momentum=args.momentum,
         dropout=args.dropout,
         cutmix_prob=args.cutmix_prob,
         beta=args.beta,
-        batch_size=args.batch_size,
         learning_rate=args.learning_rate,
         weight_decay=args.weight_decay,
         train_criterion=loss_dict[args.training_loss],
         model_optimizer=optim_dict[args.optimizer],
         data_augmentations=eval(args.data_augmentation),
-        save_model_str=args.model_path,
         exp_name=args.exp_name,
+        save_model_str=args.model_path,
         use_all_data_to_train=args.use_all_data_to_train,
         log_wandb=args.wandb
     )
