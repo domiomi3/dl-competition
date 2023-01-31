@@ -1,7 +1,10 @@
 """ File with CNN models. Add your custom CNN model here. """
+import timm
 
 import torch.nn as nn
 import torch.nn.functional as F
+
+from torch import Tensor
 
 
 class SampleModel(nn.Module):
@@ -30,3 +33,59 @@ class SampleModel(nn.Module):
         x = self.fc2(x)
 
         return x
+
+
+class EfficientNetv2SBase(nn.Module):
+    def __init__(self, num_classes=10, dropout=0):
+        super().__init__()
+        self.model = timm.create_model("tf_efficientnetv2_s", pretrained=True, num_classes=num_classes,
+                                       drop_rate=dropout)
+
+    def forward(self, x) -> Tensor:
+        """
+        Forward pass through all layers of the model
+        Args:
+            x: input data
+        Returns:
+            Logits for each class
+        """
+        return self.model(x)
+
+    def disable_gradients(self) -> None:
+        """
+        Freezes the layers of a model
+        Returns:
+            None
+        """
+        for param in self.model.parameters():
+            param.requires_grad = False
+
+    def get_num_params(self) -> int:
+        """
+        Counts learnable parameters
+        Returns:
+            Number of parameters
+        """
+        return sum(p.numel() for p in self.model.parameters() if p.requires_grad)
+
+    def get_size(self) -> int:
+        """
+        Computes model size
+        Returns:
+            Model size
+        """
+        param_size = 0
+        for param in self.model.parameters():
+            param_size += param.nelement() * param.element_size()
+        buffer_size = 0
+        for buffer in self.model.buffers():
+            buffer_size += buffer.nelement() * buffer.element_size()
+
+        return (param_size + buffer_size) / 1024 ** 2
+
+
+class EfficientNetv2STuned(EfficientNetv2SBase):
+    def __init__(self, num_classes, dropout):
+        super().__init__(num_classes, dropout)
+        self.disable_gradients()
+        self.model.classifier = nn.Linear(in_features=1280, out_features=num_classes)
