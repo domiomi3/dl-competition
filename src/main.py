@@ -39,6 +39,7 @@ def main(data_dir,
          data_augmentations=None,
          save_model_str=None,
          use_all_data_to_train=False,
+         log_wandb=False,
          exp_name=''):
     """
     Main function running HPO or single training.
@@ -70,7 +71,8 @@ def main(data_dir,
                            data_augmentations=data_augmentations,
                            save_model_str=save_model_str,
                            exp_name=exp_name,
-                           use_all_data_to_train=use_all_data_to_train
+                           use_all_data_to_train=use_all_data_to_train,
+                           log_wandb=log_wandb
                            )
 
     if bo:
@@ -95,6 +97,7 @@ def train_and_evaluate(data_dir,
                        data_augmentations=None,
                        save_model_str=None,
                        use_all_data_to_train=False,
+                       log_wandb=False,
                        exp_name=''):
     """
     Training loop.
@@ -116,10 +119,14 @@ def train_and_evaluate(data_dir,
     :return:
     """
 
-    # WandB initialization
-    wandb.login()
-    wandb.init(project=f'{exp_name}')
-    wandb.run.name = f'lr={learning_rate}_wd={weight_decay}_m={momentum}_dr={dropout}_cmix_prob={cutmix_prob}_beta={beta}'
+    # Run ID for model retrieval and WandB plotting
+    run_id = f'lr={learning_rate}_wd={weight_decay}_m={momentum}_dr={dropout}_cmix_prob={cutmix_prob}_beta={beta}'
+
+    # WandB initialization if -wb flag enabled
+    if log_wandb:
+        wandb.login()
+        wandb.init(project=f'{exp_name}')
+        wandb.run.name = run_id
 
     # Device configuration
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -181,19 +188,21 @@ def train_and_evaluate(data_dir,
             test_score = eval_fn(model, val_loader, device)
             logging.info('Validation accuracy: %f', test_score)
             score.append(test_score)
-            wandb.log({'train_accuracy': train_score, 'train_loss': train_loss, 'test_accuracy': test_score,
-                       'epoch': epoch})
+            if log_wandb:
+                wandb.log({'train_accuracy': train_score, 'train_loss': train_loss, 'test_accuracy': test_score,
+                           'epoch': epoch})
         else:
-            wandb.log({'train_accuracy': train_score, 'train_loss': train_loss, 'epoch': epoch})
+            if log_wandb:
+                wandb.log({'train_accuracy': train_score, 'train_loss': train_loss, 'epoch': epoch})
 
     if save_model_str:
         # Save the model checkpoint can be restored via "model = torch.load(save_model_str)"
-        model_save_dir = os.path.join(os.getcwd(), save_model_str)
+        model_save_dir = os.path.join(os.getcwd(), '..', save_model_str)
 
         if not os.path.exists(model_save_dir):
             os.mkdir(model_save_dir)
 
-        save_model_str = os.path.join(model_save_dir, exp_name + '_model_' + str(int(time.time())))
+        save_model_str = os.path.join(model_save_dir, exp_name + '_model_' + run_id)
         torch.save(model.state_dict(), save_model_str)
 
     if not use_all_data_to_train:
@@ -215,8 +224,6 @@ def run_bo(run_pipeline, bo_iter):
     root_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'results/bayesian_optimization')
 
     pipeline_space = get_pipeline_space()
-    # if os.path.exists("results/bayesian_optimization"):
-    #     shutil.rmtree("results/bayesian_optimization")
     neps.run(
         run_pipeline=run_pipeline,
         pipeline_space=pipeline_space,
@@ -311,6 +318,9 @@ if __name__ == '__main__':
     cmdline_parser.add_argument('-a', '--use_all_data_to_train',
                                 action='store_true',
                                 help='Uses the train, validation, and test data to train the model if enabled.')
+    cmdline_parser.add_argument('-wb', '--wandb',
+                                action='store_true',
+                                help='Enables WandB plotting.')
 
     args, unknowns = cmdline_parser.parse_known_args()
     log_lvl = logging.INFO if args.verbose == 'INFO' else logging.DEBUG
@@ -339,5 +349,6 @@ if __name__ == '__main__':
         data_augmentations=eval(args.data_augmentation),
         save_model_str=args.model_path,
         exp_name=args.exp_name,
-        use_all_data_to_train=args.use_all_data_to_train
+        use_all_data_to_train=args.use_all_data_to_train,
+        log_wandb=args.wandb
     )
