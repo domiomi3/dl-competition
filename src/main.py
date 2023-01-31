@@ -14,37 +14,12 @@ from torch.utils.data import DataLoader, ConcatDataset
 from torchsummary import summary
 from torchvision.datasets import ImageFolder
 
-from src.cnn import *
-from src.eval.evaluate import eval_fn
-from src.training import train_fn
-from src.data_augmentations import *
+from cnn import *
+from eval.evaluate import eval_fn
+from training import train_fn
+from data_augmentations import *
 from bo_pipeline import get_pipeline_space
 from utilities import set_seed
-
-
-def run_bo(run_pipeline, bo_iter):
-    """
-    Training loop for configurableNet.
-    :param torch_model: model that we are training
-    :return:
-    """
-    set_seed(124)
-    logging.basicConfig(level=logging.INFO)
-    root_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'results/bayesian_optimization')
-
-    pipeline_space = get_pipeline_space()
-    # if os.path.exists("results/bayesian_optimization"):
-    #     shutil.rmtree("results/bayesian_optimization")
-    neps.run(
-        run_pipeline=run_pipeline,
-        pipeline_space=pipeline_space,
-        overwrite_working_directory=True,
-        root_directory=root_dir,
-        max_evaluations_total=bo_iter,
-        searcher='bayesian_optimization',
-    )
-    previous_results, pending_configs = neps.status(root_dir)
-    neps.plot(root_dir)
 
 
 def main(data_dir,
@@ -84,6 +59,7 @@ def main(data_dir,
     :param exp_name: experiment name (str)
     :return:
     """
+    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
     run_pipeline = partial(train_and_evaluate,
                            data_dir=data_dir,
                            torch_model=torch_model,
@@ -226,6 +202,31 @@ def train_and_evaluate(data_dir,
         logging.info('Accuracy of model at final epoch: ' + str(100 * score[-1]) + '%')
 
     return 1 - score[-1]
+
+
+def run_bo(run_pipeline, bo_iter):
+    """
+    Training loop for configurableNet.
+    :param torch_model: model that we are training
+    :return:
+    """
+    set_seed(124)
+    logging.basicConfig(level=logging.INFO)
+    root_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'results/bayesian_optimization')
+
+    pipeline_space = get_pipeline_space()
+    # if os.path.exists("results/bayesian_optimization"):
+    #     shutil.rmtree("results/bayesian_optimization")
+    neps.run(
+        run_pipeline=run_pipeline,
+        pipeline_space=pipeline_space,
+        overwrite_working_directory=True,
+        root_directory=root_dir,
+        max_evaluations_total=bo_iter,
+        searcher='bayesian_optimization',
+    )
+    previous_results, pending_configs = neps.status(root_dir)
+    neps.plot(root_dir)
 
 
 if __name__ == '__main__':
