@@ -11,9 +11,11 @@ results/
 #.gitignore template just to be sure
 
 # Byte-compiled / optimized / DLL files
+src/__pycache__/*.pyc
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so

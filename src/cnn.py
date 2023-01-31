@@ -83,7 +83,7 @@ class EfficientNetv2SBase(nn.Module):
 
 
 class EfficientNetv2STuned(EfficientNetv2SBase):
-    def __init__(self, num_classes, dropout):
+    def __init__(self, num_classes=10, dropout=0):
         super().__init__(num_classes, dropout)
         self.disable_gradients()
         self.model.classifier = nn.Linear(in_features=1280, out_features=num_classes)
