@@ -11,6 +11,7 @@ resize_and_colour_jitter = transforms.Compose([
     transforms.ToTensor()
 ])
 
+# Used data augmentations
 rand_augment = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.RandAugment(num_ops=3, magnitude=9, num_magnitude_bins=31),

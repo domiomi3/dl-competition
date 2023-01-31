@@ -9,14 +9,16 @@ from utilities import rand_bbox
 
 def train_fn(model, optimizer, criterion, loader, device, cutmix_prob, beta):
     """
-  Training method
-  :param model: model to train
-  :param optimizer: optimization algorithm
-  :param criterion: loss function
-  :param loader: data loader for either training or testing set
-  :param device: torch device
-  :return: (accuracy, loss) on the data
-  """
+    Training method with CutMix implementation for regularization effects.
+    :param model: model to train (torch.nn.Module)
+    :param optimizer: optimization algorithm (torch.optim.Optimizer)
+    :param criterion: loss function (torch.nn._Loss)
+    :param loader: data loader for either training or testing set (torch.utils.data.DataLoader)
+    :param device: torch device (torch.device)
+    :param cutmix_prob: probability of CutMix occurrence for regularization (float)
+    :param beta: distribution from which image combination ratio is drawn in CutMix (float)
+    :return: accuracy and loss on the data (float, float)
+    """
     time_begin = time.time()
     score = AverageMeter()
     losses = AverageMeter()

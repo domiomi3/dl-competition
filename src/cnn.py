@@ -4,8 +4,6 @@ import timm
 import torch.nn as nn
 import torch.nn.functional as F
 
-from torch import Tensor
-
 
 class SampleModel(nn.Module):
     """
@@ -34,43 +32,41 @@ class SampleModel(nn.Module):
 
 
 class EfficientNetv2SBase(nn.Module):
+    """
+    A pretrained EfficientNetv2S model as in https://arxiv.org/abs/2104.00298.
+    """
     def __init__(self, num_classes=10, dropout=0):
         super().__init__()
         self.model = timm.create_model("tf_efficientnetv2_s", pretrained=True, num_classes=num_classes,
                                        drop_rate=dropout)
 
-    def forward(self, x) -> Tensor:
+    def forward(self, x):
         """
-        Forward pass through all layers of the model
-        Args:
-            x: input data
-        Returns:
-            Logits for each class
+        Forward pass through all layers of the model.
+        :param x: input data (torch.Tensor)
+        :return: logits for each class (torch.Tensor)
         """
         return self.model(x)
 
-    def disable_gradients(self) -> None:
+    def disable_gradients(self):
         """
-        Freezes the layers of a model
-        Returns:
-            None
+        Freezes model layers.
+        :return:
         """
         for param in self.model.parameters():
             param.requires_grad = False
 
-    def get_num_params(self) -> int:
+    def get_num_params(self):
         """
-        Counts learnable parameters
-        Returns:
-            Number of parameters
+        Counts learnable parameters.
+        :return: number of parameters (int)
         """
         return sum(p.numel() for p in self.model.parameters() if p.requires_grad)
 
-    def get_size(self) -> int:
+    def get_size(self):
         """
-        Computes model size
-        Returns:
-            Model size
+        Computes model size.
+        :return: model size (int)
         """
         param_size = 0
         for param in self.model.parameters():
@@ -83,6 +79,9 @@ class EfficientNetv2SBase(nn.Module):
 
 
 class EfficientNetv2STuned(EfficientNetv2SBase):
+    """
+    A pretrained EfficientNetv2S model with the last fully-connected layer unfrozen for optimization.
+    """
     def __init__(self, num_classes=10, dropout=0):
         super().__init__(num_classes, dropout)
         self.disable_gradients()

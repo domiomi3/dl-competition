@@ -4,6 +4,10 @@ import torch
 
 
 def set_seed(seed=123):
+    """
+    Set seed for reproducibility.
+    :return:
+    """
     np.random.seed(seed)
     random.seed(seed)
     torch.manual_seed(seed)
@@ -15,6 +19,12 @@ def set_seed(seed=123):
 
 
 def rand_bbox(size, lam):
+    """
+    Calculate the bounding boxes and new labels for CutMix.
+    :param size: image size (int)
+    :param lam: cut ration (torch.optim.Optimizer)
+    :return: bounding boxes and labels (float, int, float, int)
+    """
     W = size[2]
     H = size[3]
     cut_rat = np.sqrt(1. - lam)

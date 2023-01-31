@@ -17,19 +17,19 @@ if __name__ == '__main__':
                         help='Name of the Model class present in cnn.py (Eg: SampleModel)',
                         type=str)
 
-    parser.add_argument('-p', '--saved-model-file',
+    parser.add_argument('-p', '--saved_model_file',
                         default='sample_model',
                         help='Name of file inside models directory which contains the saved weights of the trained '
                              'model',
                         type=str)
 
-    parser.add_argument('-D', '--test-data-dir',
+    parser.add_argument('-D', '--test_data_dir',
                         default=os.path.join(os.getcwd(), 'dataset', 'test'),
                         help='Path to folder with the test data to evaluate the model on.'
                         + 'The organizers will populate the test folder with the unseen dataset to evaluate your model.'
                         )
 
-    parser.add_argument('-d', '--data-augmentations',
+    parser.add_argument('-d', '--data_augmentations',
                         default='resize_to_224x224',
                         help='Data augmentation to apply to data before passing it to the model. '
                         + 'Must be available in data_augmentations.py')
