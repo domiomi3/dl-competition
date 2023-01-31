@@ -25,14 +25,14 @@ from utilities import set_seed
 def main(data_dir,
          torch_model,
          bo=False,
-         bo_iter=20,
-         num_epochs=15,
-         batch_size=32,
+         bo_iter=15,
+         num_epochs=40,
+         batch_size=16,
          learning_rate=1e-3,
-         weight_decay=0.9,
+         weight_decay=0.01,
          dropout=1e-5,
          momentum=0.9,
-         cutmix_prob=0.5,
+         cutmix_prob=0.3,
          beta=0.1,
          model_optimizer=torch.optim.RMSprop,
          train_criterion=torch.nn.CrossEntropyLoss,
@@ -84,13 +84,13 @@ def main(data_dir,
 
 def train_and_evaluate(data_dir,
                        torch_model,
-                       num_epochs=15,
-                       batch_size=32,
+                       num_epochs=40,
+                       batch_size=16,
                        learning_rate=1e-3,
-                       weight_decay=0.9,
+                       weight_decay=0.01,
                        dropout=1e-5,
                        momentum=0.9,
-                       cutmix_prob=0.5,
+                       cutmix_prob=0.3,
                        beta=0.1,
                        model_optimizer=torch.optim.RMSprop,
                        train_criterion=torch.nn.CrossEntropyLoss,
@@ -125,8 +125,7 @@ def train_and_evaluate(data_dir,
     # WandB initialization if -wb flag enabled
     if log_wandb:
         wandb.login()
-        wandb.init(project=f'{exp_name}')
-        wandb.run.name = run_id
+        wandb.init(project=f'{exp_name}', id=run_id, reinit=True)
 
     # Device configuration
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
